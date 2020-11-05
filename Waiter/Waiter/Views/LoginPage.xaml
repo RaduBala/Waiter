@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Waiter.Views.LoginPage">
+    <StackLayout>
+        <Entry x:Name="Entry_Name" Placeholder="Name"/>
+        <Entry x:Name="Entry_Password" Placeholder="Password"/>
+        <Button x:Name="Button_SigIn" Text="Log in" Clicked="Button_SigIn_Clicked"/>
+    </StackLayout>
+</ContentPage>
