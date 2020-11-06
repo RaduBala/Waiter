@@ -13,7 +13,6 @@ namespace Waiter
 {
     public partial class MainPage : ContentPage
     {
-        /*ana are mere*/
         public MainPage()
         {
             InitializeComponent();
