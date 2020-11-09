@@ -13,15 +13,15 @@
             </x:Arguments>
         </NavigationPage>
 
-        <NavigationPage Title="Menu">
-            <x:Arguments>
-                <views:MenuPage />
-            </x:Arguments>
-        </NavigationPage>
-
         <NavigationPage Title="Orders">
             <x:Arguments>
                 <views:OrdersPage />
+            </x:Arguments>
+        </NavigationPage>
+
+        <NavigationPage Title="Account">
+            <x:Arguments>
+                <views:AccountPage />
             </x:Arguments>
         </NavigationPage>
     </TabbedPage.Children>

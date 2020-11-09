@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Waiter.Views;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using ZXing.Net.Mobile.Forms;
 
@@ -17,24 +18,35 @@ namespace Waiter
         {
             InitializeComponent();
 
-            //Navigation.PushAsync(new LoginPage());
+            Navigation.PushModalAsync(new LoginPage());
+        }
+
+        public async void OnScanResult()
+        {
+            await Navigation.PopModalAsync();
+
+            await Navigation.PushAsync(new MenuPage());
         }
 
         private async void Button_StartScan(object sender, EventArgs e)
         {
-            ZXingScannerPage scannerPage = new ZXingScannerPage();
+            ZXingScannerPage scannerPage            = new ZXingScannerPage();
+            PermissionStatus cameraPermissionStatus = await Permissions.CheckStatusAsync<Permissions.Camera>();
 
-            await Navigation.PushAsync(scannerPage);
-
-            scannerPage.OnScanResult += (result) =>
+            if (PermissionStatus.Granted != cameraPermissionStatus)
             {
-                Device.BeginInvokeOnMainThread(async () =>
-                {
-                    await Navigation.PopAsync();
+                cameraPermissionStatus = await Permissions.RequestAsync<Permissions.Camera>();
+            }
 
-                    await Navigation.PushAsync(new MenuPage());
-                });
-            };
+            if (PermissionStatus.Granted == cameraPermissionStatus)
+            {
+                await Navigation.PushModalAsync(scannerPage);
+
+                scannerPage.OnScanResult += (result) =>
+                {
+                    Device.BeginInvokeOnMainThread(OnScanResult);
+                };
+            }
         }
 
         private void Button_Menu_Clicked(object sender, EventArgs e)

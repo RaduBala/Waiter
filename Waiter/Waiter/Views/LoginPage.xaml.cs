@@ -17,11 +17,11 @@ namespace Waiter.Views
             InitializeComponent();
         }
 
-        private void Button_SigIn_Clicked(object sender, EventArgs e)
+        private async void Button_SingIn_Clicked(object sender, EventArgs e)
         {
             User user = new User(Entry_Name.Text, Entry_Password.Text) ;
 
-            Navigation.PopAsync();
+            await Navigation.PopModalAsync();
         }
     }
 }

@@ -7,11 +7,11 @@ namespace Waiter.ViewModels
 {
     public class MenuOrderViewModel
     {
-        public List<MenuOrder> MenuOrdersList { get; set; }
+        public List<Order> MenuOrdersList { get; set; }
 
         public MenuOrderViewModel()
         {
-            MenuOrdersList = new MenuOrder().GetMenuOrders();
+            MenuOrdersList = new Order().GetMenuOrders();
         }
     }
 }
