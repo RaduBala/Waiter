@@ -6,7 +6,7 @@ namespace Waiter.Models
 {
     public class Order
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
 
         public int Price { get; set; } 
 
@@ -21,10 +21,10 @@ namespace Waiter.Models
         {
             List<Order> menuOrders = new List<Order>()
             {
-                new Order() { Name = "Ciorba de burta", Price = 20 , Ingredients = ""} ,
-                new Order() { Name = "Fasole cu ciolan", Price = 25 , Ingredients = ""} ,
-                new Order() { Name = "Cotlet de porc", Price = 30 , Ingredients = ""} ,
-                new Order() { Name = "Papanasi", Price = 15 , Ingredients = ""} ,
+                new Order() { Title = "Ciorba de burta", Price = 20 , Ingredients = ""} ,
+                new Order() { Title = "Fasole cu ciolan", Price = 25 , Ingredients = ""} ,
+                new Order() { Title = "Cotlet de porc", Price = 30 , Ingredients = ""} ,
+                new Order() { Title = "Papanasi", Price = 15 , Ingredients = ""} ,
             };
 
             return menuOrders;
