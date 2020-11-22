@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Waiter.Models;
-using Waiter.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -13,15 +12,11 @@ namespace Waiter.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MenuPage : ContentPage
     {
-        MenuOrderViewModel menuOrderViewModel;
-
-        public MenuPage()
+        public MenuPage(List<MenuOrder> menuOrders)
         {
             InitializeComponent();
 
-            menuOrderViewModel = new MenuOrderViewModel();
-
-            MenuList.ItemsSource = menuOrderViewModel.MenuOrdersList;
+            MenuList.ItemsSource = menuOrders;
         }
 
         protected override void OnAppearing()
