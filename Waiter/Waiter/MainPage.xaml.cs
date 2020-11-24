@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Waiter.Models;
 using Waiter.Views;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -14,44 +15,25 @@ namespace Waiter
 {
     public partial class MainPage : ContentPage
     {
+        IMenuRepository menuRepository;
+
         public MainPage()
         {
             InitializeComponent();
 
             Navigation.PushModalAsync(new LoginPage());
+
+            menuRepository = DependencyService.Get<IMenuRepository>();
         }
 
-        public async void OnScanResult()
+        private async void Button_Connect(object sender, EventArgs e)
         {
-            await Navigation.PopModalAsync();
-
-            await Navigation.PushAsync(new MenuPage());
+            await Navigation.PushAsync(new Connect());
         }
 
-        private async void Button_StartScan(object sender, EventArgs e)
+        private void Button_Menu(object sender, EventArgs e)
         {
-            ZXingScannerPage scannerPage            = new ZXingScannerPage();
-            PermissionStatus cameraPermissionStatus = await Permissions.CheckStatusAsync<Permissions.Camera>();
-
-            if (PermissionStatus.Granted != cameraPermissionStatus)
-            {
-                cameraPermissionStatus = await Permissions.RequestAsync<Permissions.Camera>();
-            }
-
-            if (PermissionStatus.Granted == cameraPermissionStatus)
-            {
-                await Navigation.PushModalAsync(scannerPage);
-
-                scannerPage.OnScanResult += (result) =>
-                {
-                    Device.BeginInvokeOnMainThread(OnScanResult);
-                };
-            }
-        }
-
-        private void Button_Menu_Clicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new MenuPage());
+            Navigation.PushAsync(new MenuPage(menuRepository.GetMenu()));
         }
     }
 }
