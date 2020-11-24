@@ -12,6 +12,6 @@ namespace Waiter.Services
 {
     internal interface IRestService
     {
-        Task<List<MenuOrder>> GetMenuAsync();
+        Task<List<Order>> GetMenuAsync();
     }
 }

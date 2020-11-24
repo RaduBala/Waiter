@@ -21,7 +21,7 @@ namespace Waiter.Views
         {
             User user = new User(Entry_Name.Text, Entry_Password.Text) ;
 
-            await Navigation.PopModalAsync(); 
+            await Navigation.PopModalAsync();
         }
     }
 }

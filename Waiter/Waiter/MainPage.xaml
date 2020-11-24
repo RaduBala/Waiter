@@ -5,13 +5,8 @@
     
     <ContentPage.Content>
         <StackLayout>
-            <StackLayout.Padding>
-                <OnIdiom x:TypeArguments="Thickness">
-                    <OnIdiom.Phone>40,200,40,100</OnIdiom.Phone>
-                </OnIdiom>
-            </StackLayout.Padding>
-            <Button Text="Connect" Clicked="Button_Connect"/>
-            <Button Text="Menu"    Clicked="Button_Menu"/>
+            <Button Text="Scan" Clicked="Button_StartScan"/>
+            <Button Text="Menu" Clicked="Button_Menu_Clicked"/>
         </StackLayout>
     </ContentPage.Content>
     

@@ -76,10 +76,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppDataHelper.cs" />
     <Compile Include="MainActivity.cs" />
-    <Compile Include="MenuListener.cs" />
-    <Compile Include="MenuRepository.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

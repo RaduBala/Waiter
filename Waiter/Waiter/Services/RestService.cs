@@ -15,16 +15,16 @@ namespace Waiter.Services
     {
         HttpClient client ;
 
-        public List<MenuOrder> Menu { get; private set; }
+        public List<Order> Menu { get; private set; }
 
         public RestService()
         {
             client = new HttpClient();
         }
 
-        public async Task<List<MenuOrder>> GetMenuAsync()
+        public async Task<List<Order>> GetMenuAsync()
         {
-            Menu = new List<MenuOrder>();
+            Menu = new List<Order>();
 
             Uri uri = new Uri(string.Format(Constants.RestUrl, string.Empty));
 
@@ -36,7 +36,7 @@ namespace Waiter.Services
                 {
                     string content = await response.Content.ReadAsStringAsync();
 
-                    Menu = JsonConvert.DeserializeObject<List<MenuOrder>>(content);
+                    Menu = JsonConvert.DeserializeObject<List<Order>>(content);
                 }
             }
             catch (Exception ex)
