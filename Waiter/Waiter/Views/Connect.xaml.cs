@@ -21,9 +21,23 @@ namespace Waiter.Views
             InitializeComponent();
         }
 
+        public async void OnQrCodeScanResult()
+        {
+            await Navigation.PopModalAsync();
+
+            OnScanResult();
+        }
+
         public async void OnScanResult()
         {
-            await Navigation.PopAsync();
+            Page             connectPage    = Navigation.NavigationStack.LastOrDefault();
+            IMenuRepository  menuRepository = DependencyService.Get<IMenuRepository>();
+
+            MenuList = await menuRepository.GetMenuAsync();
+
+            await Navigation.PushAsync(new MenuPage(MenuList));
+
+            Navigation.RemovePage(connectPage);
         }
 
         private async void Button_ScanQrCodeAsync(object sender, EventArgs e)
@@ -42,18 +56,14 @@ namespace Waiter.Views
 
                 scannerPage.OnScanResult += (result) =>
                 {
-                    Device.BeginInvokeOnMainThread(OnScanResult);
+                    Device.BeginInvokeOnMainThread(OnQrCodeScanResult);
                 };
             }
         }
 
-        private async void Button_ScanNfc(object sender, EventArgs e)
+        private void Button_ScanNfc(object sender, EventArgs e)
         {
-            IMenuRepository  menuRepository = DependencyService.Get<IMenuRepository>();
-
-            MenuList = await menuRepository.GetMenuAsync();
-
-            await Navigation.PushAsync(new MenuPage(MenuList));
+            OnScanResult();
         }
     }
 }
