@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Net.Mime;
+using System.Reflection;
 using System.Threading.Tasks;
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Firebase.Database;
+using Firebase.Storage;
 using Java.Util;
+using Plugin.Media;
 using Waiter.Droid;
 using Waiter.Models;
 using Xamarin.Forms;
@@ -26,6 +21,8 @@ namespace Waiter.Droid
         private static List<MenuOrder> MenuList = new List<MenuOrder>();
 
         private bool RetrivedDataFlag = false;
+
+        FirebaseStorage firebaseStorage;
 
         private void MenuListener_OnRetrived(object sender, Services.MenuDataEventArgs e)
         {
@@ -43,9 +40,10 @@ namespace Waiter.Droid
         {
             HashMap item = new HashMap();
 
-            item.Put("Title", order.Title);
+            item.Put("Title"      , order.Title      );
             item.Put("Ingredients", order.Ingredients);
-            item.Put("Price", order.Price);
+            item.Put("Price"      , order.Price      );
+            item.Put("Photo link" , order.PhotoLink  );
 
             DatabaseReference databaseReference = AppDataHelper.GetDatabase().GetReference("Menu").Child("Order").Push();
 
@@ -68,9 +66,18 @@ namespace Waiter.Droid
 
             menuListener.RequestData();
 
-            await Task.Run(RetrivedDataUpdated);
+            await System.Threading.Tasks.Task.Run(RetrivedDataUpdated);
 
             return MenuList;
+        }
+
+        public async Task<string> GetImage(string PhotoName)
+        {
+            firebaseStorage = new FirebaseStorage("waiterdatabase.appspot.com");
+
+            string imageUrl = await firebaseStorage.Child("Images").Child(PhotoName).GetDownloadUrlAsync();
+
+            return imageUrl;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Waiter
 {
     public partial class MainPage : ContentPage
     {
-        IMenuRepository menuRepository;
+        private IMenuRepository menuRepository;
 
         public MainPage()
         {

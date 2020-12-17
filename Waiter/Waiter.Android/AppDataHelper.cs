@@ -19,7 +19,7 @@ namespace Waiter.Droid
         public static FirebaseDatabase GetDatabase()
         {  
             FirebaseApp      firebaseApp      = FirebaseApp.InitializeApp(Application.Context);
-            FirebaseDatabase firebaseDatabase = null;
+            FirebaseDatabase firebaseDatabase ;
 
             if (null == firebaseApp)
             {

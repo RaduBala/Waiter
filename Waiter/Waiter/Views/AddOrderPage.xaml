@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Waiter.Views.AddOrderPage">
+    <ContentPage.Content>
+        <StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Start">
+                <Image x:Name="OrderPhoto_Image"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                <Button Text ="+" Clicked="ButtonAdd_Clicked"/>
+                <Label x:Name="Label_OrderCount" Text="1" FontSize="30"></Label>
+                <Button Text ="-" Clicked="ButtonRemove_Clicked"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Vertical"  HorizontalOptions="Fill" VerticalOptions="End">
+                <Button Text="Add" Clicked="ButtonAddOrder_Clicked"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

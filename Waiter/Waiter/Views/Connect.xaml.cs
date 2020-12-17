@@ -14,7 +14,9 @@ namespace Waiter.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class Connect : ContentPage
     {
-        List<MenuOrder> MenuList = new List<MenuOrder>();
+        private List<MenuOrder> MenuList = new List<MenuOrder>();
+
+        private string QrCodeResultText = null;
 
         public Connect()
         {
@@ -56,8 +58,14 @@ namespace Waiter.Views
 
                 scannerPage.OnScanResult += (result) =>
                 {
+                    QrCodeResultText = result.Text;
+
                     Device.BeginInvokeOnMainThread(OnQrCodeScanResult);
                 };
+            }
+            else
+            {
+                await Navigation.PopAsync();
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace Waiter.Models
 {
@@ -11,6 +12,8 @@ namespace Waiter.Models
         public int Price { get; set; } 
 
         public string Ingredients { get; set; }
+
+        public string PhotoLink { get; set; }
 
         public MenuOrder()
         {

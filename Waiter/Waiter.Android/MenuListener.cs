@@ -55,6 +55,7 @@ namespace Waiter.Droid
                     order.Title       = Order.Child("Title").Value.ToString();
                     order.Price       = int.Parse(Order.Child("Price").Value.ToString());
                     order.Ingredients = Order.Child("Ingredients").Value.ToString();
+                    order.PhotoLink   = Order.Child("Photo link").Value.ToString();
 
                     MenuList.Add(order);
                 }

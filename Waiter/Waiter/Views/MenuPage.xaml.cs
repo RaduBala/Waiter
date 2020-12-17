@@ -23,5 +23,17 @@ namespace Waiter.Views
         {
 
         }
+
+        private async void MenuList_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (null != e.SelectedItem)
+            {
+                MenuOrder menuOrder = (MenuOrder)e.SelectedItem;
+
+                MenuList.SelectedItem = null;
+
+                await Navigation.PushModalAsync(new AddOrderPage(menuOrder));
+            }
+        }
     }
 }
