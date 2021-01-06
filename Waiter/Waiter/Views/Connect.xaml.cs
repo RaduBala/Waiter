@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Waiter.Models;
+using Waiter.Services;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -32,10 +33,12 @@ namespace Waiter.Views
 
         public async void OnScanResult()
         {
-            Page             connectPage    = Navigation.NavigationStack.LastOrDefault();
-            IMenuRepository  menuRepository = DependencyService.Get<IMenuRepository>();
+            Page               connectPage        = Navigation.NavigationStack.LastOrDefault();
+            RestaurantDatabase restaurantDatabase = new RestaurantDatabase();
 
-            MenuList = await menuRepository.GetMenuAsync();
+            await restaurantDatabase.Connect(QrCodeResultText);
+
+            MenuList = restaurantDatabase.GetMenu();
 
             await Navigation.PushAsync(new MenuPage(MenuList));
 
@@ -71,6 +74,8 @@ namespace Waiter.Views
 
         private void Button_ScanNfc(object sender, EventArgs e)
         {
+            QrCodeResultText = "-MQIHhZ56a6dH2lHkCHa 1";
+
             OnScanResult();
         }
     }

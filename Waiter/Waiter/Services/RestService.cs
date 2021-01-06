@@ -24,9 +24,9 @@ namespace Waiter.Services
 
         public async Task<List<MenuOrder>> GetMenuAsync()
         {
-            Menu = new List<MenuOrder>();
+            List<MenuOrder> menu = new List<MenuOrder>();
 
-            Uri uri = new Uri(string.Format(Constants.RestUrl, string.Empty));
+            Uri uri = new Uri(string.Format(Constants.FirebaseUrl, string.Empty));
 
             try
             {
@@ -36,7 +36,7 @@ namespace Waiter.Services
                 {
                     string content = await response.Content.ReadAsStringAsync();
 
-                    Menu = JsonConvert.DeserializeObject<List<MenuOrder>>(content);
+                    menu = JsonConvert.DeserializeObject<List<MenuOrder>>(content);
                 }
             }
             catch (Exception ex)
