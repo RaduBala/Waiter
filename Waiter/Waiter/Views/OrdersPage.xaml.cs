@@ -73,7 +73,7 @@ namespace Waiter.Views
                 selectedOrder.Count++;
             }
         }
-        //
+        
         private void Button_CommitClicked(object sender, EventArgs e)
         {
             List<TableOrder> tableOrders = ordersList.ToList();
