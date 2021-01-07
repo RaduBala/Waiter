@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Waiter.Models;
+using Waiter.Services;
 using Waiter.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -15,7 +13,7 @@ namespace Waiter.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OrdersPage : ContentPage
     {
-        private static ObservableCollection<OrdersPageViewModel> ordersList = new ObservableCollection<OrdersPageViewModel>();
+        private static ObservableCollection<TableOrder> ordersList = new ObservableCollection<TableOrder>();
 
         public OrdersPage()
         {
@@ -31,8 +29,8 @@ namespace Waiter.Views
 
         public static void AddOrder(MenuOrder menuOrder, int count)
         {
-            OrdersPageViewModel addedOrder = new OrdersPageViewModel { Order = menuOrder, Count = count } ;
-            OrdersPageViewModel auxOrder   = ordersList.FirstOrDefault(x => x.Order == menuOrder);
+            TableOrder addedOrder = new TableOrder { Order = menuOrder, Count = count } ;
+            TableOrder auxOrder   = ordersList.FirstOrDefault(x => x.Order == menuOrder);
 
             if(null == auxOrder)
             {
@@ -46,9 +44,9 @@ namespace Waiter.Views
 
         private void Button_Remove(object sender, EventArgs e)
         { 
-            Button              button        = (Button)sender;
-            OrdersPageViewModel serchedOrder  = (OrdersPageViewModel)button.BindingContext;
-            OrdersPageViewModel selectedOrder = ordersList.FirstOrDefault(x => x.Order == serchedOrder.Order);
+            Button     button        = (Button)sender;
+            TableOrder serchedOrder  = (TableOrder)button.BindingContext;
+            TableOrder selectedOrder = ordersList.FirstOrDefault(x => x.Order == serchedOrder.Order);
 
             if (null != selectedOrder)
             {
@@ -66,9 +64,9 @@ namespace Waiter.Views
 
         private void Button_Add(object sender, EventArgs e)
         {
-            Button              button        = (Button)sender;
-            OrdersPageViewModel serchedOrder  = (OrdersPageViewModel)button.BindingContext;
-            OrdersPageViewModel selectedOrder = ordersList.FirstOrDefault(x => x.Order == serchedOrder.Order);
+            Button     button        = (Button)sender;
+            TableOrder serchedOrder  = (TableOrder)button.BindingContext;
+            TableOrder selectedOrder = ordersList.FirstOrDefault(x => x.Order == serchedOrder.Order);
 
             if (null != selectedOrder)
             {
@@ -76,9 +74,11 @@ namespace Waiter.Views
             }
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void Button_CommitClicked(object sender, EventArgs e)
         {
+            List<TableOrder> tableOrders = ordersList.ToList();
 
+            RestaurantDatabase.SaveOrders(tableOrders);
         }
     }
 }

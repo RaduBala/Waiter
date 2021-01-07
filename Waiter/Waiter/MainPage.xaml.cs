@@ -16,15 +16,11 @@ namespace Waiter
 {
     public partial class MainPage : ContentPage
     {
-        private RestaurantDatabase restaurantDatabase ;
-
         public MainPage()
         {
             InitializeComponent();
 
             Navigation.PushModalAsync(new LoginPage());
-
-            restaurantDatabase = new RestaurantDatabase();
         }
 
         private void Button_ConnectStateChange(object sender, EventArgs e)
@@ -52,12 +48,12 @@ namespace Waiter
                 new Table() { Number = 3 , OccupiedStatus = false } ,
             };
 
-            await restaurantDatabase.SaveRestaurant(restaurant);
+            await RestaurantDatabase.SaveRestaurant(restaurant);
         }
 
         private async void Button_Menu(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new MenuPage(restaurantDatabase.GetMenu()));
+            await Navigation.PushAsync(new MenuPage(RestaurantDatabase.GetMenu()));
         }
     }
 }

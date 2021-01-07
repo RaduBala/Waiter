@@ -7,27 +7,25 @@ using Waiter.Models;
 using Waiter.Constans;
 using Newtonsoft.Json.Linq;
 using System;
+using Waiter.ViewModels;
 
 namespace Waiter.Services
 {
-    public class RestaurantDatabase
+    public static class RestaurantDatabase
     {
-        private FirebaseClient firebaseClient = null;
+        private static FirebaseClient firebaseClient = null;
 
-        private Restaurant restaurant = null;
+        private static Restaurant restaurant = null;
 
-        private string connectionString = null;
+        private static string connectionString = null;
 
-        public RestaurantDatabase()
-        {
-            firebaseClient = new FirebaseClient(Constants.FirebaseUrl);
-        }
-
-        public async Task Connect(string restaurantConnectionString)
+        public static async Task Connect(string restaurantConnectionString)
         {
             string[] restaurantConnectionStringArray = restaurantConnectionString.Split(' ');
             string   restaurantKey                   = restaurantConnectionStringArray[0];
             int      tableId                         = Int32.Parse(restaurantConnectionStringArray[1]) - 1;
+
+            firebaseClient = new FirebaseClient(Constants.FirebaseUrl);
 
             connectionString = restaurantConnectionString;
 
@@ -44,7 +42,7 @@ namespace Waiter.Services
             await childQuery.PutAsync(table);
         }
 
-        public async Task Disconnect()
+        public static async Task Disconnect()
         {
             string[] ConnectionStringArray = connectionString.Split(' ');
             string   restaurantKey         = ConnectionStringArray[0];
@@ -59,19 +57,34 @@ namespace Waiter.Services
             await childQuery.PutAsync(table);
         }
 
-        public async Task SaveRestaurant(Restaurant restaurantAdded)
+        public static async Task SaveRestaurant(Restaurant restaurantAdded)
         {
             ChildQuery childQuery = firebaseClient.Child("Restaurants");
 
             await childQuery.PostAsync(restaurantAdded);
         }
 
-        public Restaurant GetRestaurant()
+        public static async void SaveOrders(List<TableOrder> orders)
+        {
+            string[] ConnectionStringArray = connectionString.Split(' ');
+            string   restaurantKey         = ConnectionStringArray[0];
+            int      tableId               = Int32.Parse(ConnectionStringArray[1]) - 1;
+
+            ChildQuery childQuery = firebaseClient.Child("Restaurants").Child(restaurantKey).Child("Tables").Child(tableId.ToString());
+
+            Table table = restaurant.Tables.FirstOrDefault(x => x.Number == (tableId + 1));
+
+            table.Orders = orders;
+
+            await childQuery.PutAsync(table);
+        }
+
+        public static Restaurant GetRestaurant()
         {
             return restaurant;
         }
 
-        public List<MenuOrder> GetMenu()
+        public static List<MenuOrder> GetMenu()
         {
             return restaurant.Menu;
         }

@@ -33,12 +33,11 @@ namespace Waiter.Views
 
         public async void OnScanResult()
         {
-            Page               connectPage        = Navigation.NavigationStack.LastOrDefault();
-            RestaurantDatabase restaurantDatabase = new RestaurantDatabase();
+            Page connectPage = Navigation.NavigationStack.LastOrDefault();
 
-            await restaurantDatabase.Connect(QrCodeResultText);
+            await RestaurantDatabase.Connect(QrCodeResultText);
 
-            MenuList = restaurantDatabase.GetMenu();
+            MenuList = RestaurantDatabase.GetMenu();
 
             await Navigation.PushAsync(new MenuPage(MenuList));
 

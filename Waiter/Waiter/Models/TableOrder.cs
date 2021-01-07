@@ -7,7 +7,10 @@ namespace Waiter.Models
 {
     public class TableOrder
     {
-        [JsonProperty("Title")]
-        public string Title { get; set; }
+        [JsonProperty("Order")]
+        public MenuOrder Order { get; set; }
+
+        [JsonProperty("Count")]
+        public int Count { get; set; }
     }
 }

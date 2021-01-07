@@ -30,7 +30,7 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Button Text="Commit" Clicked="Button_Clicked" HorizontalOptions="Center"/>
+            <Button Text="Commit" Clicked="Button_CommitClicked" HorizontalOptions="Center"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
