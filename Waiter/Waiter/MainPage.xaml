@@ -10,7 +10,7 @@
                     <OnIdiom.Phone>40,200,40,100</OnIdiom.Phone>
                 </OnIdiom>
             </StackLayout.Padding>
-            <Button Text="Connect" Clicked="Button_Connect"/>
+            <Button Text="Connect" Clicked="Button_ConnectStateChange"/>
             <Button Text="Menu"    Clicked="Button_Menu"/>
         </StackLayout>
     </ContentPage.Content>

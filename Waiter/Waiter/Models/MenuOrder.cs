@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
@@ -7,12 +8,16 @@ namespace Waiter.Models
 {
     public class MenuOrder
     {
+        [JsonProperty("Title")]
         public string Title { get; set; }
 
-        public int Price { get; set; } 
+        [JsonProperty("Price")]
+        public int Price { get; set; }
 
+        [JsonProperty("Ingredients")]
         public string Ingredients { get; set; }
 
+        [JsonProperty("PhotoLink")]
         public string PhotoLink { get; set; }
 
         public MenuOrder()

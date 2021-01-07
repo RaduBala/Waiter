@@ -3,17 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Waiter.Views.MenuPage">
     <ContentPage.Content>
-        <ListView x:Name="MenuList" ItemSelected="MenuList_ItemSelected">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Label Text="{Binding Title}" FontAttributes="Bold" />
-                            <Label Text="{Binding Price}" VerticalOptions="End" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout Spacing="10" Padding="10">
+            <ListView x:Name="MenuList" ItemSelected="MenuList_ItemSelected" HasUnevenRows="true">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Spacing="20" Orientation="Horizontal">
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
+                                        <Label Text="{Binding Title}" FontAttributes="Bold" VerticalOptions="Start"/>
+                                        <Label Text="{Binding Ingredients}" VerticalOptions="Center"/>
+                                        <Label Text="{Binding Price}" VerticalOptions="End"/>
+                                    </StackLayout>
+                                    <Image Source="{Binding PhotoLink}" HorizontalOptions="End" WidthRequest="150" HeightRequest="150"/>
+                                    </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

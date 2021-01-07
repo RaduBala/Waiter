@@ -6,17 +6,31 @@
              mc:Ignorable="d"
              x:Class="Waiter.Views.OrdersPage">
     <ContentPage.Content>
-        <ListView x:Name="OrdersList">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <Grid>
-                            <Label Text="{Binding Order.Title}" FontAttributes="Bold" />
-                            <Label Text="{Binding Order.Price}" VerticalOptions="End" />
-                        </Grid>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout>
+            <ListView x:Name="OdersViewList" ItemsSource="{Binding OrdersData}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <ViewCell.View>
+                                <StackLayout Spacing="20" Orientation="Horizontal">
+                                    <StackLayout Spacing="10" Orientation="Vertical">
+                                        <Label Text="{Binding Order.Title}" FontAttributes="Bold" />
+                                        <Label Text="{Binding Order.Price}" VerticalOptions="End" />
+                                    </StackLayout>
+
+                                    <StackLayout Spacing="10" Orientation="Horizontal">
+                                        <Button Text="-" Clicked="Button_Remove"/>
+                                        <Label Text ="{Binding Count}"/>
+                                        <Button Text="+" Clicked="Button_Add"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell.View>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button Text="Commit" Clicked="Button_Clicked" HorizontalOptions="Center"/>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
