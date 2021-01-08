@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:Waiter="clr-namespace:Waiter.Views"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:Waiter="clr-namespace:Waiter.Views"
              x:Class="Waiter.MainPage">
     
     <ContentPage.Content>
@@ -10,7 +11,7 @@
                     <OnIdiom.Phone>40,200,40,100</OnIdiom.Phone>
                 </OnIdiom>
             </StackLayout.Padding>
-            <Button Text="Connect" Clicked="Button_ConnectStateChange"/>
+            <Button x:Name="ConnectButton" Text="Connect" Clicked="Button_ConnectStateChange"/>
             <Button Text="Menu"    Clicked="Button_Menu"/>
         </StackLayout>
     </ContentPage.Content>

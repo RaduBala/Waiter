@@ -27,10 +27,15 @@ namespace Waiter.Views
             base.OnAppearing();
         }
 
+        public static void Clear()
+        {
+            ordersList.Clear();
+        }
+
         public static void AddOrder(MenuOrder menuOrder, int count)
         {
             TableOrder addedOrder = new TableOrder { Order = menuOrder, Count = count } ;
-            TableOrder auxOrder   = ordersList.FirstOrDefault(x => x.Order == menuOrder);
+            TableOrder auxOrder   = ordersList.FirstOrDefault(x => x.Order == menuOrder); 
 
             if(null == auxOrder)
             {
@@ -73,7 +78,7 @@ namespace Waiter.Views
                 selectedOrder.Count++;
             }
         }
-        
+
         private void Button_CommitClicked(object sender, EventArgs e)
         {
             List<TableOrder> tableOrders = ordersList.ToList();

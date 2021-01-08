@@ -23,9 +23,30 @@ namespace Waiter
             Navigation.PushModalAsync(new LoginPage());
         }
 
-        private void Button_ConnectStateChange(object sender, EventArgs e)
+        private async void Button_ConnectStateChange(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new Connect());
+            if(false == RestaurantDatabase.ConnectionStatus)
+            {
+                await Navigation.PushAsync(new Connect());         
+            }
+            else
+            {
+                await RestaurantDatabase.Disconnect();
+
+                OrdersPage.Clear();
+
+                ConnectButton.Text = "Connect";
+            }
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (true == RestaurantDatabase.ConnectionStatus)
+            {
+                ConnectButton.Text = "Disconnect";
+            }
         }
 
         private async void SaveRestaurant()

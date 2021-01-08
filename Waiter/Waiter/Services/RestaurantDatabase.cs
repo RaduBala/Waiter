@@ -19,6 +19,8 @@ namespace Waiter.Services
 
         private static string connectionString = null;
 
+        public static bool ConnectionStatus { get; set; }
+
         public static async Task Connect(string restaurantConnectionString)
         {
             string[] restaurantConnectionStringArray = restaurantConnectionString.Split(' ');
@@ -40,6 +42,8 @@ namespace Waiter.Services
             table.OccupiedStatus = true;
 
             await childQuery.PutAsync(table);
+
+            ConnectionStatus = true;
         }
 
         public static async Task Disconnect()
@@ -53,8 +57,15 @@ namespace Waiter.Services
             Table table = restaurant.Tables.FirstOrDefault(x => x.Number == (tableId + 1));
 
             table.OccupiedStatus = false;
+            table.Orders         = null;
 
             await childQuery.PutAsync(table);
+
+            restaurant.Menu.Clear();
+
+            restaurant = null;
+
+            ConnectionStatus = false;
         }
 
         public static async Task SaveRestaurant(Restaurant restaurantAdded)
