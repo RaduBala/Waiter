@@ -14,14 +14,14 @@
                             <ViewCell.View>
                                 <StackLayout Spacing="20" Orientation="Horizontal">
                                     <StackLayout Spacing="10" Orientation="Vertical">
-                                        <Label Text="{Binding Order.Title}" FontAttributes="Bold" />
-                                        <Label Text="{Binding Order.Price}" VerticalOptions="End" />
+                                        <Label Text="{Binding Order.Order.Title}" FontAttributes="Bold" />
+                                        <Label Text="{Binding Order.Order.Price}" VerticalOptions="End" />
                                     </StackLayout>
 
                                     <StackLayout Spacing="10" Orientation="Horizontal">
-                                        <Button Text="-" Clicked="Button_Remove"/>
-                                        <Label Text ="{Binding Count}"/>
-                                        <Button Text="+" Clicked="Button_Add"/>
+                                        <Button Text="-" IsVisible="{Binding RemoveButtonIsVisible}" Clicked="Button_Remove"/>
+                                        <Label Text ="{Binding Order.Count}"/>
+                                        <Button Text="+" IsVisible="{Binding AddButtonIsVisible}" Clicked="Button_Add"/>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell.View>

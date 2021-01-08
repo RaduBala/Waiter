@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waiter.Android", "Waiter\Wa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waiter.iOS", "Waiter\Waiter.iOS\Waiter.iOS.csproj", "{5E0C445B-4DFA-4C9A-87F8-31F8C93782EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Waiter", "Waiter\Waiter\Waiter.csproj", "{91BBCD27-1070-4F53-B3C6-089C7E0A161F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Waiter", "Waiter\Waiter\Waiter.csproj", "{91BBCD27-1070-4F53-B3C6-089C7E0A161F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

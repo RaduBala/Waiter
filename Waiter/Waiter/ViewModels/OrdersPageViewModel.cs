@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -7,52 +8,13 @@ using Waiter.Models;
 
 namespace Waiter.ViewModels
 {
-    public class OrdersPageViewModel : INotifyPropertyChanged
+    public class OrdersPageViewModel
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public ObservableCollection<OrderListItem> OrderListItems {get; set;}
 
-        private int count;
-
-        private MenuOrder order;
-
-        public MenuOrder Order 
+        public OrdersPageViewModel()
         {
-            get
-            {
-                return order;
-            }
-            
-            set
-            {
-                order = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        public int Count
-        { 
-            get
-            {
-                return count;
-            }
-
-            set
-            {
-                count = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            OrderListItems = new ObservableCollection<OrderListItem>();
         }
     }
 }

@@ -97,7 +97,14 @@ namespace Waiter.Services
 
         public static List<MenuOrder> GetMenu()
         {
-            return restaurant.Menu;
+            List<MenuOrder> menu = null;
+
+            if(null != restaurant)
+            {
+                menu = restaurant.Menu;
+            }
+
+            return menu;
         }
     }
 }

@@ -13,13 +13,13 @@ namespace Waiter.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OrdersPage : ContentPage
     {
-        private static ObservableCollection<TableOrder> ordersList = new ObservableCollection<TableOrder>();
+        private static OrdersPageViewModel ordersPageViewModel = new OrdersPageViewModel();
 
         public OrdersPage()
         {
             InitializeComponent();
 
-            OdersViewList.ItemsSource = ordersList;
+            OdersViewList.ItemsSource = ordersPageViewModel.OrderListItems;
         }
 
         protected override void OnAppearing()
@@ -29,39 +29,41 @@ namespace Waiter.Views
 
         public static void Clear()
         {
-            ordersList.Clear();
+            ordersPageViewModel.OrderListItems.Clear();
         }
 
         public static void AddOrder(MenuOrder menuOrder, int count)
         {
-            TableOrder addedOrder = new TableOrder { Order = menuOrder, Count = count } ;
-            TableOrder auxOrder   = ordersList.FirstOrDefault(x => x.Order == menuOrder); 
+            TableOrder    addedOrder = new TableOrder { Order = menuOrder, Count = count } ;
+            OrderListItem auxOrder   = ordersPageViewModel.OrderListItems.FirstOrDefault(x => x.Order.Order == menuOrder); 
 
             if(null == auxOrder)
             {
-                ordersList.Add(addedOrder);
+                OrderListItem orderListItem = new OrderListItem { Order = addedOrder, AddButtonIsVisible = true, RemoveButtonIsVisible = true };
+
+                ordersPageViewModel.OrderListItems.Add(orderListItem);
             }
             else
             {
-                auxOrder.Count += count;
+                auxOrder.Order.Count += count;
             }      
         }
 
         private void Button_Remove(object sender, EventArgs e)
-        { 
-            Button     button        = (Button)sender;
-            TableOrder serchedOrder  = (TableOrder)button.BindingContext;
-            TableOrder selectedOrder = ordersList.FirstOrDefault(x => x.Order == serchedOrder.Order);
+        {
+            Button        button        = (Button)sender;
+            OrderListItem serchedOrder  = (OrderListItem)button.BindingContext;
+            OrderListItem selectedOrder = ordersPageViewModel.OrderListItems.FirstOrDefault(x => x.Order == serchedOrder.Order);
 
             if (null != selectedOrder)
             {
-                if (selectedOrder.Count > 0)
+                if (selectedOrder.Order.Count > 0)
                 {
-                    selectedOrder.Count--;
+                    selectedOrder.Order.Count--;
 
-                    if(0 == selectedOrder.Count)
+                    if(0 == selectedOrder.Order.Count)
                     {
-                        ordersList.Remove(selectedOrder);
+                        ordersPageViewModel.OrderListItems.Remove(selectedOrder);
                     }
                 }
             }  
@@ -69,19 +71,24 @@ namespace Waiter.Views
 
         private void Button_Add(object sender, EventArgs e)
         {
-            Button     button        = (Button)sender;
-            TableOrder serchedOrder  = (TableOrder)button.BindingContext;
-            TableOrder selectedOrder = ordersList.FirstOrDefault(x => x.Order == serchedOrder.Order);
+            Button        button        = (Button)sender;
+            OrderListItem serchedOrder  = (OrderListItem)button.BindingContext;
+            OrderListItem selectedOrder = ordersPageViewModel.OrderListItems.FirstOrDefault(x => x.Order == serchedOrder.Order);
 
             if (null != selectedOrder)
             {
-                selectedOrder.Count++;
+                selectedOrder.Order.Count++;
             }
         }
 
         private void Button_CommitClicked(object sender, EventArgs e)
         {
-            List<TableOrder> tableOrders = ordersList.ToList();
+            List<TableOrder> tableOrders = new List<TableOrder>();
+
+            foreach(OrderListItem item in ordersPageViewModel.OrderListItems)
+            {
+                tableOrders.Add(item.Order);
+            }
 
             RestaurantDatabase.SaveOrders(tableOrders);
         }
