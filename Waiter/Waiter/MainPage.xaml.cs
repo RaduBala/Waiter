@@ -21,6 +21,8 @@ namespace Waiter
             InitializeComponent();
 
             Navigation.PushModalAsync(new LoginPage());
+
+            var x = Device.RuntimePlatform;
         }
 
         private async void Button_ConnectStateChange(object sender, EventArgs e)

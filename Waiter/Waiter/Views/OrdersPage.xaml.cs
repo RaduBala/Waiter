@@ -87,6 +87,10 @@ namespace Waiter.Views
 
             foreach(OrderListItem item in ordersPageViewModel.OrderListItems)
             {
+                item.OrderStatus           = true;
+                item.RemoveButtonIsVisible = false;
+                item.AddButtonIsVisible    = false;
+
                 tableOrders.Add(item.Order);
             }
 
