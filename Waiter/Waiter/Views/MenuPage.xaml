@@ -2,26 +2,30 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Waiter.Views.MenuPage">
-    <ContentPage.Content>
-        <StackLayout Spacing="10" Padding="10">
-            <ListView x:Name="MenuList" ItemSelected="MenuList_ItemSelected" HasUnevenRows="true">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <StackLayout Spacing="20" Orientation="Horizontal">
-                                    <StackLayout Orientation="Vertical" HorizontalOptions="Start">
-                                        <Label Text="{Binding Title}" FontAttributes="Bold" VerticalOptions="Start"/>
-                                        <Label Text="{Binding Ingredients}" VerticalOptions="Center"/>
-                                        <Label Text="{Binding Price}" VerticalOptions="End"/>
-                                    </StackLayout>
-                                    <Image Source="{Binding PhotoLink}" HorizontalOptions="End" WidthRequest="150" HeightRequest="150"/>
-                                    </StackLayout>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
-    </ContentPage.Content>
+
+    <StackLayout Background="gray">
+        <ListView x:Name="MenuList" 
+                  ItemSelected="MenuList_ItemSelected"
+                  HasUnevenRows="True"
+                  SeparatorVisibility="None">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Frame Padding="5" Margin="10,5,10,5">
+                            <StackLayout Orientation="Horizontal" Padding="5">
+                                <StackLayout HorizontalOptions="StartAndExpand">
+                                    <Label Text="{Binding Title}" FontAttributes="Bold" VerticalOptions="Start" />
+                                    <Label Text="{Binding Ingredients}" VerticalOptions="CenterAndExpand"/>
+                                    <Label Text="{Binding Price}" VerticalOptions="End"/>
+                                </StackLayout>
+                                <StackLayout>
+                                    <Image Source="{Binding PhotoLink}" HeightRequest="120" WidthRequest="180"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </Frame>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
 </ContentPage>
