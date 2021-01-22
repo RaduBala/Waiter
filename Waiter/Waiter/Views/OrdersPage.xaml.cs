@@ -19,7 +19,7 @@ namespace Waiter.Views
         {
             InitializeComponent();
 
-            OdersViewList.ItemsSource = ordersPageViewModel.OrderListItems;
+            BindingContext = ordersPageViewModel;
         }
 
         protected override void OnAppearing()

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             NavigationPage.HasNavigationBar="False"
+             x:Name="HomePageContent"
+             xmlns:local="clr-namespace:Waiter.Services"
+             x:Class="Waiter.Views.HomePage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InvertBoolConverter x:Key="InvertBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand" >
+            <StackLayout Spacing="20" IsVisible="{Binding IsConnected, Converter={StaticResource InvertBool}}">
+                <Label  Text="Select connection type" TextColor="DarkOrange" FontSize="24" FontAttributes="Bold"/>
+                <Button Text="QR Code" Clicked="Button_ScanQrCodeAsync_Clicked" WidthRequest="150" HeightRequest="120"/>
+                <Button Text="NFC" Clicked="Button_ScanNfc_Clicked" WidthRequest="150" HeightRequest="120"/>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding IsConnected}" Background="gray">
+                <ListView x:Name="ListView_Menu" 
+                  ItemSelected="MenuList_ItemSelected"
+                  HasUnevenRows="True"
+                  ItemsSource="{Binding Menu}"
+                  SeparatorVisibility="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Frame Padding="5" Margin="10,5,10,5">
+                                    <StackLayout Orientation="Horizontal" Padding="5">
+                                        <StackLayout HorizontalOptions="StartAndExpand">
+                                            <Label Text="{Binding Title}" FontAttributes="Bold" VerticalOptions="Start" />
+                                            <Label Text="{Binding Ingredients}" VerticalOptions="CenterAndExpand"/>
+                                            <Label Text="{Binding Price}" VerticalOptions="End"/>
+                                        </StackLayout>
+                                        <StackLayout>
+                                            <Image Source="{Binding PhotoLink}" HeightRequest="120" WidthRequest="180"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </Frame>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

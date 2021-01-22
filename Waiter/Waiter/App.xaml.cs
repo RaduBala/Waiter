@@ -11,7 +11,10 @@ namespace Waiter
         {
             InitializeComponent();
 
-            MainPage = new TabbedMenuPage();
+            MainPage = new NavigationPage(new TabbedMenuPage())
+            {
+                BarBackgroundColor = Color.DarkOrange,
+            };
         }
 
         protected override void OnStart()

@@ -58,7 +58,7 @@ namespace Waiter.Views
             {
                 await Navigation.PushModalAsync(scannerPage);
 
-                scannerPage.OnScanResult += (result) =>
+                scannerPage.OnScanResult += (result) => 
                 {
                     QrCodeResultText = result.Text;
 

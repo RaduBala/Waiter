@@ -13,6 +13,20 @@ namespace Waiter.ViewModels
     {
         public ObservableCollection<OrderListItem> OrderListItems {get; set;}
 
+        private bool isButtonVisible = false;
+
+        public bool IsButtonVisible 
+        {
+            get { return isButtonVisible; }
+
+            set 
+            {
+                isButtonVisible = value; 
+
+                OnPropertyChanged(); 
+            }
+        } 
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public OrdersPageViewModel()
@@ -22,17 +36,19 @@ namespace Waiter.ViewModels
             OrderListItems.CollectionChanged += OrderListItems_CollectionChanged;
         }
 
-        protected void OnPropertyChanged(string propName)
+        void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            if (this.PropertyChanged != null)
+            var handler = PropertyChanged;
+
+            if (handler != null)
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(propName));
+                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
         private void OrderListItems_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            OnPropertyChanged("OrderListItems");
+            IsButtonVisible = OrderListItems.Count == 0 ? false : true;
         }
     }
 }

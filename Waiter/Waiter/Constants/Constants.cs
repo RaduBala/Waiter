@@ -9,5 +9,9 @@ namespace Waiter.Constans
         public static string RestaurantKey = "-MQ8WbI5F945eeeEs6Za";
 
         public static string FirebaseUrl = "https://waiterdatabase.firebaseio.com/";
+
+        public static string RestaurantConnectedEventName = "RestaurantConnected";
+
+        public static string RestaurantDisconnectedEventName = "RestaurantDisconnected";
     }
 }

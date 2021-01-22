@@ -1,25 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:local="clr-namespace:Waiter.Services"
-             xmlns:viewModels="clr-namespace:Waiter.ViewModels"
-             mc:Ignorable="d"
+             NavigationPage.HasNavigationBar="False"
              x:Class="Waiter.Views.OrdersPage">
-    
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local:ListIsNullConvert x:Key="ListIsNull" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
-
-    <ContentPage.BindingContext>
-        <viewModels:OrdersPageViewModel/>
-    </ContentPage.BindingContext>
 
     <StackLayout>
-        <ListView x:Name="OdersViewList">
+        <ListView ItemsSource="{Binding OrderListItems}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -31,9 +17,9 @@
                                 </StackLayout>
 
                                 <StackLayout Spacing="10" Orientation="Horizontal">
-                                    <Button Text="-" IsVisible="{Binding RemoveButtonIsVisible}" Clicked="Button_Remove"/>
+                                    <Button Text="-" IsVisible="true" Clicked="Button_Remove"/>
                                     <Label Text ="{Binding Order.Count}"/>
-                                    <Button Text="+" IsVisible="{Binding AddButtonIsVisible}" Clicked="Button_Add"/>
+                                    <Button Text="+" IsVisible="true" Clicked="Button_Add"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell.View>
@@ -45,6 +31,6 @@
         <Button Text="Commit" 
                 Clicked="Button_CommitClicked" 
                 HorizontalOptions="Center" 
-                IsVisible="{Binding OrderListItems, Converter={StaticResource ListIsNull}}"/>
+                IsVisible="{Binding IsButtonVisible}"/>
     </StackLayout>
 </ContentPage>
