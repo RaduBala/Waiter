@@ -18,7 +18,7 @@
 
                                 <StackLayout Spacing="10" Orientation="Horizontal">
                                     <Button Text="-" IsVisible="true" Clicked="Button_Remove"/>
-                                    <Label Text ="{Binding Order.Count}"/>
+                                    <Label Text ="{Binding Order.Count}" FontSize="20"/>
                                     <Button Text="+" IsVisible="true" Clicked="Button_Add"/>
                                 </StackLayout>
                             </StackLayout>

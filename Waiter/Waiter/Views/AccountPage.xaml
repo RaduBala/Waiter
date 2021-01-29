@@ -3,11 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
              x:Class="Waiter.Views.AccountPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Spacing="30">
+        <Entry x:Name="Entry_NfcData" Placeholder="NFC Data" WidthRequest="300"/>
+        <Button Text="Write NFC tag" Clicked="Button_Clicked" WidthRequest="300"/>
+    </StackLayout>
 </ContentPage>

@@ -9,7 +9,6 @@ namespace Waiter.ViewModels
 {
     public class HomePageViewModel : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler PropertyChanged;
 
         private List<MenuOrder> menu;
 
@@ -44,6 +43,8 @@ namespace Waiter.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
         void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

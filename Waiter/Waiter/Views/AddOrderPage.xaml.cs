@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using Waiter.Constans;
 using Waiter.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -59,7 +60,9 @@ namespace Waiter.Views
         {
             int orderCount = Int32.Parse(Label_OrderCount.Text);
 
-            OrdersPage.AddOrder(addedOrder, orderCount);
+            TableOrder tableOrder = new TableOrder() { Order = addedOrder, Count = orderCount };
+
+            MessagingCenter.Send(this, Constants.AddOrderEventName, tableOrder);
 
             await Navigation.PopModalAsync();
         }

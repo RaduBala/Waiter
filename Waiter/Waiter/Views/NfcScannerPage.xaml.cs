@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Waiter.Constans;
 using Waiter.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -10,20 +11,28 @@ using Xamarin.Forms.Xaml;
 namespace Waiter.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AccountPage : ContentPage
+    public partial class NfcScannerPage : ContentPage
     {
+        public event ScanResultDelegate OnScanResult;
+
+        public delegate void ScanResultDelegate(string result);
+
         private INfcService nfcService;
 
-        public AccountPage()
+        public NfcScannerPage()
         {
             InitializeComponent();
 
             nfcService = DependencyService.Get<INfcService>();
+
+            nfcService.OnScanResult += OnTagReadDataResult;
+
+            nfcService.Init();
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private void OnTagReadDataResult(string data)
         {
-            nfcService.WriteTag(Entry_NfcData.Text);
+            OnScanResult.Invoke(data);
         }
     }
 }

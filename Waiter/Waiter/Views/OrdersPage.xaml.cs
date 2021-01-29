@@ -7,6 +7,7 @@ using Waiter.Services;
 using Waiter.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using Waiter.Constans;
 
 namespace Waiter.Views
 {
@@ -20,6 +21,8 @@ namespace Waiter.Views
             InitializeComponent();
 
             BindingContext = ordersPageViewModel;
+
+            MessagingCenter.Subscribe<AddOrderPage, TableOrder>(this, Constants.AddOrderEventName, AddOrder);
         }
 
         protected override void OnAppearing()
@@ -32,10 +35,10 @@ namespace Waiter.Views
             ordersPageViewModel.OrderListItems.Clear();
         }
 
-        public static void AddOrder(MenuOrder menuOrder, int count)
+        public static void AddOrder(AddOrderPage addOrderPage, TableOrder order)
         {
-            TableOrder    addedOrder = new TableOrder { Order = menuOrder, Count = count } ;
-            OrderListItem auxOrder   = ordersPageViewModel.OrderListItems.FirstOrDefault(x => x.Order.Order == menuOrder); 
+            TableOrder    addedOrder = order;
+            OrderListItem auxOrder   = ordersPageViewModel.OrderListItems.FirstOrDefault(x => x.Order == order); 
 
             if(null == auxOrder)
             {
@@ -45,7 +48,7 @@ namespace Waiter.Views
             }
             else
             {
-                auxOrder.Order.Count += count;
+                auxOrder.Order.Count += addedOrder.Count;
             }      
         }
 

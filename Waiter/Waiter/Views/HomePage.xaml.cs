@@ -81,11 +81,18 @@ namespace Waiter.Views
             }
         }
 
-        private void Button_ScanNfc_Clicked(object sender, EventArgs e)
+        private async void Button_ScanNfc_Clicked(object sender, EventArgs e)
         {
-            QrCodeResultText = "-MQIHhZ56a6dH2lHkCHa 1";
+            NfcScannerPage nfcScannerPage = new NfcScannerPage();
 
-            OnScanResult();
+            await Navigation.PushModalAsync(nfcScannerPage);
+
+            nfcScannerPage.OnScanResult += (data) =>
+            {
+                QrCodeResultText = data;
+
+                Device.BeginInvokeOnMainThread(OnQrCodeScanResult);
+            };
         }
 
         private async void MenuList_ItemSelected(object sender, SelectedItemChangedEventArgs e)

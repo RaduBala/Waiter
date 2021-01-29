@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Waiter.MarkupExtensions"
+             x:Class="Waiter.Views.NfcScannerPage">
+
+    <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Spacing="100">
+        <StackLayout>
+            <Label Text="Ready to scan" FontSize="30" HorizontalOptions="Center"/>
+        </StackLayout>
+        
+        <StackLayout Opacity="1">
+            <Image Source="{local:EmbeddedImage Waiter.Images.NfcLogo.png}"/>
+            <Label Text="Please hold your phone near to the table NFC tag" FontSize="15" HorizontalOptions="Center"/>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>

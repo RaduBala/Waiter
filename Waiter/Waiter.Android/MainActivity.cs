@@ -6,13 +6,19 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Xamarin.Forms;
+using Android.Content;
+using Android.Nfc;
+using System.Text;
+using Waiter.Views;
+using Waiter.Constans;
 
 namespace Waiter.Droid
 {
     [Activity(Label = "Waiter", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation | ConfigChanges.UiMode | ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
-        public object CrossCurrentActivity { get; private set; }
+        private NfcManager nfcManager = new NfcManager();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -21,11 +27,15 @@ namespace Waiter.Droid
 
             base.OnCreate(savedInstanceState);
 
+            Window.SetStatusBarColor(Android.Graphics.Color.DarkOrange);
+
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
 
-            Window.SetStatusBarColor(Android.Graphics.Color.DarkOrange);
+            this.Window.SetFlags(WindowManagerFlags.KeepScreenOn, WindowManagerFlags.KeepScreenOn);
+
+            nfcManager.Init(this);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
@@ -33,6 +43,18 @@ namespace Waiter.Droid
             Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults); 
+        }
+
+        protected override void OnResume()
+        {
+            base.OnResume();
+
+            nfcManager.Listening(this);
+        }
+
+        protected override void OnNewIntent(Intent intent)
+        {
+            nfcManager.OnTagDiscovered(intent);
         }
     }
 }
