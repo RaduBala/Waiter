@@ -4,7 +4,7 @@ namespace Waiter.Constans
 {
     public static class Constants
     {
-        public static string RestaurantKey = "-MQ8WbI5F945eeeEs6Za";
+        public static string RestaurantKey = "-MQIHhZ56a6dH2lHkCHa";
 
         public static string FirebaseUrl = "https://waiterdatabase.firebaseio.com/";
 
@@ -23,5 +23,7 @@ namespace Waiter.Constans
         public static string NfcWriteTagEventName = "NfcWriteTag";
 
         public static string NfcWriteTagFinishEventName = "NfcWriteTagFinish";
+
+        public static string NfcOpenSettingsEventName = "NfcOpenSettings";
     }
 }

@@ -40,15 +40,13 @@ namespace Waiter.Views
             homePageViewModel.IsConnected = true;
         }
 
-        private async void OnQrCodeScanResult()
-        {
-            await Navigation.PopModalAsync();
-
-            OnScanResult();
-        }
-
         public async void OnScanResult()
         {
+            if (App.Current.MainPage.Navigation.ModalStack.Count > 0)
+            {
+                await Navigation.PopModalAsync();
+            }
+
             await RestaurantDatabase.Connect(QrCodeResultText);
 
             homePageViewModel.Menu = RestaurantDatabase.GetMenu();
@@ -60,7 +58,7 @@ namespace Waiter.Views
 
         private async void Button_ScanQrCodeAsync_Clicked(object sender, EventArgs e)
         {
-            ZXingScannerPage scannerPage           = new ZXingScannerPage();
+            ZXingScannerPage scannerPage            = new ZXingScannerPage();
             PermissionStatus cameraPermissionStatus = await Permissions.CheckStatusAsync<Permissions.Camera>();
 
             if (PermissionStatus.Granted != cameraPermissionStatus)
@@ -76,23 +74,35 @@ namespace Waiter.Views
                 {
                     QrCodeResultText = result.Text;
 
-                    Device.BeginInvokeOnMainThread(OnQrCodeScanResult);
+                    Device.BeginInvokeOnMainThread(OnScanResult);
                 };
             }
         }
 
         private async void Button_ScanNfc_Clicked(object sender, EventArgs e)
         {
+            INfcService    nfcService     = DependencyService.Get<INfcService>();
             NfcScannerPage nfcScannerPage = new NfcScannerPage();
 
-            await Navigation.PushModalAsync(nfcScannerPage);
-
-            nfcScannerPage.OnScanResult += (data) =>
+            if (true == nfcService.GetState())
             {
-                QrCodeResultText = data;
+                await Navigation.PushModalAsync(nfcScannerPage);
 
-                Device.BeginInvokeOnMainThread(OnQrCodeScanResult);
-            };
+                nfcScannerPage.OnScanResult += (data) =>
+                {
+                    QrCodeResultText = data;
+
+                    Device.BeginInvokeOnMainThread(OnScanResult);
+                };
+            }
+            else
+            {
+                IPopup popup = DependencyService.Get<IPopup>();
+
+                popup.ShowMessage("Enable NFC before tag reading");
+
+                nfcService.OpenSettings();
+            }
         }
 
         private async void MenuList_ItemSelected(object sender, SelectedItemChangedEventArgs e)

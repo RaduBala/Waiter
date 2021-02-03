@@ -13,6 +13,7 @@ using Xamarin.Forms;
 using Waiter.Constans;
 using Waiter.Droid;
 using static Waiter.Services.INfcService;
+using Android.Nfc;
 
 [assembly: Dependency(typeof(NfcService))]
 namespace Waiter.Droid
@@ -28,12 +29,18 @@ namespace Waiter.Droid
 
         public bool GetState()
         {
-            throw new NotImplementedException();
+            NfcAdapter nfcAdapter = NfcAdapter.GetDefaultAdapter(Android.App.Application.Context);
+
+            return nfcAdapter.IsEnabled;
         }
 
-        public void SetState(bool state)
+        public void OpenSettings()
         {
-            throw new NotImplementedException();
+            Intent intent = new Intent("android.settings.NFC_SETTINGS");
+
+            intent.AddFlags(ActivityFlags.NewTask);
+
+            Android.App.Application.Context.StartActivity(intent);
         }
 
         public void OnTagRead(NfcManager nfcManager,string content)

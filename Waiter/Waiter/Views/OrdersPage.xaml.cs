@@ -22,7 +22,15 @@ namespace Waiter.Views
 
             BindingContext = ordersPageViewModel;
 
+            MessagingCenter.Subscribe<TabbedMenuPage>(this, Constants.RestaurantDisconnectedEventName, OnDisconnect);
             MessagingCenter.Subscribe<AddOrderPage, TableOrder>(this, Constants.AddOrderEventName, AddOrder);
+        }
+
+        private void OnDisconnect(TabbedMenuPage tabbedMenuPage)
+        {
+            ordersPageViewModel.OrderListItems.Clear();
+
+            ordersPageViewModel.IsButtonVisible = false;
         }
 
         protected override void OnAppearing()
@@ -38,11 +46,11 @@ namespace Waiter.Views
         public static void AddOrder(AddOrderPage addOrderPage, TableOrder order)
         {
             TableOrder    addedOrder = order;
-            OrderListItem auxOrder   = ordersPageViewModel.OrderListItems.FirstOrDefault(x => x.Order == order); 
+            OrderListItem auxOrder   = ordersPageViewModel.OrderListItems.FirstOrDefault(x => x.Order.Order == order.Order); 
 
             if(null == auxOrder)
             {
-                OrderListItem orderListItem = new OrderListItem { Order = addedOrder, AddButtonIsVisible = true, RemoveButtonIsVisible = true };
+                OrderListItem orderListItem = new OrderListItem { Order = addedOrder, CommitStatus = false };
 
                 ordersPageViewModel.OrderListItems.Add(orderListItem);
             }
@@ -90,14 +98,14 @@ namespace Waiter.Views
 
             foreach(OrderListItem item in ordersPageViewModel.OrderListItems)
             {
-                item.OrderStatus           = true;
-                item.RemoveButtonIsVisible = false;
-                item.AddButtonIsVisible    = false;
+                item.CommitStatus = true;
 
                 tableOrders.Add(item.Order);
             }
 
             RestaurantDatabase.SaveOrders(tableOrders);
+
+            ordersPageViewModel.MultifunctionButtonName = "PAY WITH CARD";
         }
     }
 }

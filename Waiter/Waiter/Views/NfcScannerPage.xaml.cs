@@ -30,6 +30,11 @@ namespace Waiter.Views
             nfcService.Init();
         }
 
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+        }
+
         private void OnTagReadDataResult(string data)
         {
             OnScanResult.Invoke(data);

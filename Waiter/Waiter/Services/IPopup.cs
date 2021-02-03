@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Waiter.Services
 {
-    public static class ConnectionManager
+    public interface IPopup
     {
-
+        public void ShowMessage(string content);
     }
 }

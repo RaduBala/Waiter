@@ -12,7 +12,7 @@ namespace Waiter.Services
 
         bool GetState();
 
-        void SetState(bool state);
+        void OpenSettings();
 
         void WriteTag(string content);
     }

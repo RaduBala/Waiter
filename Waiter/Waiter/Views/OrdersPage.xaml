@@ -2,7 +2,14 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              NavigationPage.HasNavigationBar="False"
+              xmlns:local="clr-namespace:Waiter.Services"
              x:Class="Waiter.Views.OrdersPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:InvertBoolConverter x:Key="InvertBool" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <StackLayout>
         <ListView ItemsSource="{Binding OrderListItems}">
@@ -11,15 +18,15 @@
                     <ViewCell>
                         <ViewCell.View>
                             <StackLayout Spacing="20" Orientation="Horizontal">
-                                <StackLayout Spacing="10" Orientation="Vertical">
+                                <StackLayout Spacing="10" Orientation="Vertical" HorizontalOptions="StartAndExpand">
                                     <Label Text="{Binding Order.Order.Title}" FontAttributes="Bold" />
                                     <Label Text="{Binding Order.Order.Price}" VerticalOptions="End" />
                                 </StackLayout>
 
                                 <StackLayout Spacing="10" Orientation="Horizontal">
-                                    <Button Text="-" IsVisible="true" Clicked="Button_Remove"/>
+                                    <Button Text="-" IsVisible="{Binding CommitStatus, Converter={StaticResource InvertBool}}" Clicked="Button_Remove"/>
                                     <Label Text ="{Binding Order.Count}" FontSize="20"/>
-                                    <Button Text="+" IsVisible="true" Clicked="Button_Add"/>
+                                    <Button Text="+" IsVisible="{Binding CommitStatus, Converter={StaticResource InvertBool}}" Clicked="Button_Add"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell.View>
@@ -28,7 +35,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button Text="Commit" 
+        <Button Text="{Binding MultifunctionButtonName}" 
                 Clicked="Button_CommitClicked" 
                 HorizontalOptions="Center" 
                 IsVisible="{Binding IsButtonVisible}"/>

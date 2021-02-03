@@ -15,6 +15,34 @@ namespace Waiter.ViewModels
 
         private bool isButtonVisible = false;
 
+        private string multifunctionButtonName = "COMMIT";
+
+        private bool committedFlag = false;
+
+        public bool CommittedFlag
+        {
+            get { return committedFlag; }
+
+            set 
+            {
+                committedFlag = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        public string MultifunctionButtonName
+        {
+            get { return multifunctionButtonName; }
+
+            set
+            {
+                multifunctionButtonName = value;
+
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsButtonVisible 
         {
             get { return isButtonVisible; }

@@ -85,6 +85,7 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="NfcManager.cs" />
     <Compile Include="NfcService.cs" />
+    <Compile Include="Popup.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -10,39 +10,22 @@ namespace Waiter.Models
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private bool removeButtonIsVisible = true;
-
-        private bool addButtonIsVisible = true;
+        private bool commitStatus = false;
 
         private bool orderStatus = false; 
 
         public TableOrder Order { get; set; }
 
-        public bool RemoveButtonIsVisible
+        public bool CommitStatus
         {
             get 
             {
-                return removeButtonIsVisible;
+                return commitStatus;
             }
 
             set 
             {
-                removeButtonIsVisible = value;
-
-                OnPropertyChanged();
-            }
-        }
-
-        public bool AddButtonIsVisible
-        {
-            get
-            {
-                return addButtonIsVisible;
-            }
-
-            set
-            {
-                addButtonIsVisible = value;
+                commitStatus = value;
 
                 OnPropertyChanged();
             }
