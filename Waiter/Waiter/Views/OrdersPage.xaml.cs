@@ -8,6 +8,7 @@ using Waiter.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using Waiter.Constans;
+using Rg.Plugins.Popup.Services;
 
 namespace Waiter.Views
 {
@@ -105,7 +106,9 @@ namespace Waiter.Views
 
             RestaurantDatabase.SaveOrders(tableOrders);
 
-            ordersPageViewModel.MultifunctionButtonName = "PAY WITH CARD";
+            //ordersPageViewModel.MultifunctionButtonName = "PAY WITH CARD";
+
+            //PopupNavigation.Instance.PushAsync(new PaymentView());
         }
     }
 }

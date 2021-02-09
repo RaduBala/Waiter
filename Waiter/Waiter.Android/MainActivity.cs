@@ -19,6 +19,7 @@ namespace Waiter.Droid
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
         private NfcManager nfcManager = new NfcManager();
+        private NfcService nfcService = new NfcService();
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -27,7 +28,7 @@ namespace Waiter.Droid
 
             base.OnCreate(savedInstanceState);
 
-            Window.SetStatusBarColor(Android.Graphics.Color.DarkOrange);
+            Rg.Plugins.Popup.Popup.Init(this);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -36,6 +37,8 @@ namespace Waiter.Droid
             this.Window.SetFlags(WindowManagerFlags.KeepScreenOn, WindowManagerFlags.KeepScreenOn);
 
             nfcManager.Init(this);
+
+            DependencyService.RegisterSingleton(nfcService);
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

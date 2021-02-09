@@ -12,18 +12,16 @@ namespace Waiter.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AccountPage : ContentPage
     {
-        private INfcService nfcService;
-
         public AccountPage()
         {
             InitializeComponent();
-
-            nfcService = DependencyService.Get<INfcService>();
         }
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            nfcService.WriteTag(Entry_NfcData.Text);
+            TabbedPage tabbedPage = (TabbedPage)Parent.Parent;
+
+            tabbedPage.CurrentPage = tabbedPage.Children[0];
         }
     }
 }

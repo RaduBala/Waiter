@@ -1,4 +1,5 @@
 ﻿using System;
+using Waiter.Services;
 using Waiter.Views;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;

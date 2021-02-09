@@ -12,13 +12,13 @@ using Waiter.Services;
 using Xamarin.Forms;
 using Waiter.Constans;
 using Waiter.Droid;
-using static Waiter.Services.INfcService;
+using static Waiter.Services.INfcInterface;
 using Android.Nfc;
 
 [assembly: Dependency(typeof(NfcService))]
 namespace Waiter.Droid
 {
-    public class NfcService : INfcService
+    public class NfcService : INfcInterface
     {
         public event ScanResultDelegate OnScanResult;
 
@@ -46,7 +46,7 @@ namespace Waiter.Droid
         public void OnTagRead(NfcManager nfcManager,string content)
         {
             OnScanResult.Invoke(content);
-        }
+        } 
 
         public void WriteTag(string content)
         {

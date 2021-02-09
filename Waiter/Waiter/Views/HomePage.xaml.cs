@@ -45,15 +45,15 @@ namespace Waiter.Views
             if (App.Current.MainPage.Navigation.ModalStack.Count > 0)
             {
                 await Navigation.PopModalAsync();
+
+                await RestaurantDatabase.Connect(QrCodeResultText);
+
+                homePageViewModel.Menu = RestaurantDatabase.GetMenu();
+
+                MessagingCenter.Send(this, Constants.RestaurantConnectedEventName);
+
+                OnConnectViewUpdate();
             }
-
-            await RestaurantDatabase.Connect(QrCodeResultText);
-
-            homePageViewModel.Menu = RestaurantDatabase.GetMenu();
-
-            MessagingCenter.Send(this, Constants.RestaurantConnectedEventName);
-
-            OnConnectViewUpdate();
         }
 
         private async void Button_ScanQrCodeAsync_Clicked(object sender, EventArgs e)
@@ -81,10 +81,9 @@ namespace Waiter.Views
 
         private async void Button_ScanNfc_Clicked(object sender, EventArgs e)
         {
-            INfcService    nfcService     = DependencyService.Get<INfcService>();
             NfcScannerPage nfcScannerPage = new NfcScannerPage();
 
-            if (true == nfcService.GetState())
+            if (true == NfcCom.GetState())
             {
                 await Navigation.PushModalAsync(nfcScannerPage);
 
@@ -101,7 +100,7 @@ namespace Waiter.Views
 
                 popup.ShowMessage("Enable NFC before tag reading");
 
-                nfcService.OpenSettings();
+                NfcCom.OpenSettings();
             }
         }
 

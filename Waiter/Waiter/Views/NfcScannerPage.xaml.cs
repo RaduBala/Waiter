@@ -17,22 +17,20 @@ namespace Waiter.Views
 
         public delegate void ScanResultDelegate(string result);
 
-        private INfcService nfcService;
-
         public NfcScannerPage()
         {
             InitializeComponent();
 
-            nfcService = DependencyService.Get<INfcService>();
+            NfcCom.Init();
 
-            nfcService.OnScanResult += OnTagReadDataResult;
-
-            nfcService.Init();
+            NfcCom.Subscribe(OnTagReadDataResult);
         }
 
         protected override void OnDisappearing()
         {
             base.OnDisappearing();
+
+            NfcCom.Unsubscribe(OnTagReadDataResult);
         }
 
         private void OnTagReadDataResult(string data)
